@@ -19,7 +19,7 @@ class TranslatesController extends Controller
     }
     public function create($lang) {
     	return view('translates::translates-add', compact(['data','lang']));
-    }public function doCreate(Request $request) {
+    }public function doCreate(Request $request, $lang) {
     	$incode = $request['incode'];
     	$en = $request['en'];
     	$vn = $request['vn'];
@@ -30,7 +30,7 @@ class TranslatesController extends Controller
     		'vn' => $vn,
     		'pages' => $pages
     	]);
-    	return redirect('index');
+    	return redirect($lang.'/index');
     }
     public function language($lang) {
     	setLocale('vn');
