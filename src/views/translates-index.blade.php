@@ -12,10 +12,10 @@
   </head>
   <body>
   	<div>
-  		<a href="{{ url($lang.'/create') }}">{{ trans('message.add') }}</a>
+  		<a href="{{ url($lang.'/create') }}">@{{ trans('message.add') }}</a>
   	</div>
   	<div>
-  		<a href="{{ url('update') }}">Update Trans</a>
+  		<a href="{{ url($lang.'/update') }}">Update Trans</a>
   	</div>
     <table class="table">
 		<thead>
