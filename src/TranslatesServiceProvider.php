@@ -16,8 +16,8 @@ class TranslatesServiceProvider extends ServiceProvider
     {
         include __DIR__.'/routes.php';
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $vendors = Storage::allDirectories('vendors');
-        Storage::move($vendors, 'public/vendors/$directories');
+        $this->publishes([__DIR__.'/vendors' => public_path('vendors'),], 'public');
+        $this->publishes([__DIR__.'/build' => public_path('build'),], 'public');
     }
     /**
      * Register services.
