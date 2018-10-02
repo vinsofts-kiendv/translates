@@ -3,6 +3,7 @@
 namespace Vinsofts\Translates;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Storage;
 
 class TranslatesServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,8 @@ class TranslatesServiceProvider extends ServiceProvider
     {
         include __DIR__.'/routes.php';
         $this->loadMigrationsFrom(__DIR__.'/migrations');
+        $vendors = Storage::allDirectories('vendors');
+        Storage::move($vendors, 'public/vendors/$directories');
     }
     /**
      * Register services.
