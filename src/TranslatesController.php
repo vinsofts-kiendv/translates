@@ -4,7 +4,7 @@ namespace Vinsofts\Translates;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Translate;
+use Vinsofts\Translates\Translate;
 use Storage;
 use DB;
 use App;
@@ -12,32 +12,23 @@ use App;
 class TranslatesController extends Controller
 {
 	public function index($lang) {
-		$data = DB::table('translates') -> get();
-		// $data = Translate::all();
+		$data = Translate::all();
 		App::setLocale($lang);
     	return view('translates::translates-index', compact(['data','lang']));
     }
     public function create($lang) {
-    	return view('translates::translates-add', compact(['data','lang']));
+    	return view('translates::translates-add', compact('lang'));
     }public function doCreate(Request $request, $lang) {
-    	$incode = $request['incode'];
-    	$en = $request['en'];
-    	$vn = $request['vn'];
-    	$pages = $request['pages'];
-    	DB::table('translates') -> insert([
-    		'in_code' => $incode,
-    		'en' => $en,
-    		'vn' => $vn,
-    		'pages' => $pages
-    	]);
+        $trans = new Translate;
+        $trans -> in_code = $request['incode'];
+        $trans -> en = $request['en'];
+        $trans -> vn = $request['vn'];
+        $trans -> pages = $request['pages'];
+    	$trans -> save();
     	return redirect($lang.'/index');
     }
-    public function language($lang) {
-    	setLocale('vn');
-    	return view('translates::translates-add');
-    }
     public function updateTrans() {
-		$data = DB::table('translates') -> get();
+		$data = Translate::all();
 		$trans_en_string = '<?php return [';
 		$trans_vn_string = '<?php return [';
 		foreach ($data as $trans) {
